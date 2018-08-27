@@ -632,9 +632,11 @@ LECTURE 30 - CODING CHALLANGE 5
 var johnBills, johnAvgTip, markBills, markAvgTip;
 johnBills = {
     bills: [124, 48, 268, 180, 42],
-    tips: [],
-    totals: [],
+    // tips: [],
+    // totals: [],
     calcTips: function() {
+        this.tips = [];
+        this.totals = [];
         for (var i = 0; i < this.bills.length; i++) {
             var bill, percentage, tip, total;
             bill = this.bills[i];
@@ -664,9 +666,11 @@ johnBills = {
 };
 markBills = {
     bills: [77, 375, 110, 45],
-    tips: [],
-    totals: [],
+    // tips: [],
+    // totals: [],
     calcTips: function() {
+        this.tips = [];
+        ths.totals = [];
         for (var i = 0; i < this.bills.length; i++) {
             var bill, percentage, tip, total;
             bill = this.bills[i];
