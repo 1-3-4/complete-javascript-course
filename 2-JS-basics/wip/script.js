@@ -642,86 +642,101 @@ johnBills = {
             bill = this.bills[i];
             if (bill < 50) {
                 percentage = 0.2;
-                tip = bill * percentage;
-                total = bill + tip;
-                this.tips.push(tip);
-                this.totals.push(total);
+                // tip = bill * percentage;
+                // total = bill + tip;
+                // this.tips.push(tip);
+                // this.totals.push(total);
             }
-            else if (this.bills[i] >= 50 && this.bills[i] < 200) {
+            else if (bill >= 50 && bill < 200) {
                 percentage = 0.15;
-                tip = bill * percentage;
-                total = bill + tip;
-                this.tips.push(tip);
-                this.totals.push(total);
+                // tip = bill * percentage;
+                // total = bill + tip;
+                // this.tips.push(tip);
+                // this.totals.push(total);
             }
             else {
                 percentage = 0.1;
-                tip = bill * percentage;
-                total = bill + tip;
-                this.tips.push(tip);
-                this.totals.push(total);
+                // tip = bill * percentage;
+                // total = bill + tip;
+                // this.tips.push(tip);
+                // this.totals.push(total);
             }
+            tip = bill * percentage;
+            total = bill + tip;
+            this.tips.push(tip);
+            this.totals.push(total);
         }
     }
 };
 markBills = {
-    bills: [77, 375, 110, 45],
+    bills: [77, 475, 110, 45],
     // tips: [],
     // totals: [],
     calcTips: function() {
         this.tips = [];
-        ths.totals = [];
+        this.totals = [];
         for (var i = 0; i < this.bills.length; i++) {
             var bill, percentage, tip, total;
             bill = this.bills[i];
             if (bill < 100) {
                 percentage = 0.2;
-                tip = bill * percentage;
-                total = bill + tip;
-                this.tips.push(tip);
-                this.totals.push(total);
+                // tip = bill * percentage;
+                // total = bill + tip;
+                // this.tips.push(tip);
+                // this.totals.push(total);
             }
             else if (bill >= 100 && bill < 300) {
                 percentage = 0.1;
-                tip = bill * percentage;
-                total = bill + tip;
-                this.tips.push(tip);
-                this.totals.push(total);
+                // tip = bill * percentage;
+                // total = bill + tip;
+                // this.tips.push(tip);
+                // this.totals.push(total);
             }
             else {
                 percentage = 0.25;
-                tip = bill * percentage;
-                total = bill + tip;
-                this.tips.push(tip);
-                this.totals.push(total);
+                // tip = bill * percentage;
+                // total = bill + tip;
+                // this.tips.push(tip);
+                // this.totals.push(total);
             }
+            tip = bill * percentage;
+            total = bill + tip;
+            this.tips.push(tip);
+            this.totals.push(total);
         }
     }
 };
 
 function calcTipAvg(tips) {
-    var numOfTips, sumOfTips, avgTip;
-    numOfTips = tips.length;
+    var sumOfTips, avgTip;
     sumOfTips = 0;
-    for (var i = 0; i < numOfTips; i++) {
+    for (var i = 0; i < tips.length; i++) {
         sumOfTips = sumOfTips + tips[i];
     }
-    avgTip = sumOfTips / numOfTips;
+    avgTip = sumOfTips / tips.length;
     return avgTip;
 }
 
 johnBills.calcTips();
 markBills.calcTips();
 
-johnAvgTip = calcTipAvg(johnBills.tips);
-markAvgTip = calcTipAvg(markBills.tips);
+// johnAvgTip = calcTipAvg(johnBills.tips);
+// markAvgTip = calcTipAvg(markBills.tips);
+// Store the average tip in the object itself:
+johnBills.avgTip = calcTipAvg(johnBills.tips);
+markBills.avgTip = calcTipAvg(markBills.tips);
 
-if (johnAvgTip < markAvgTip) {
-    console.log('Mark\'s family tips the most on average: ' + markAvgTip);
+// if (johnAvgTip < markAvgTip) {
+if (johnBills.avgTip < markBills.avgTip) {
+    // console.log('Mark\'s family tips the most on average: ' + markAvgTip);
+    console.log('Mark\'s family tips the most on average: ' + markBills.avgTip);
 }
-else if (markAvgTip < johnAvgTip) {
-    console.log('John\'s family tips the most on average: ' + johnAvgTip);
+// else if (markAvgTip < johnAvgTip) {
+else if (markBills.avgTip < johnBills.avgTip) {
+    // console.log('John\'s family tips the most on average: ' + johnAvgTip);
+    console.log('John\'s family tips the most on average: ' + johnBills.avgTip);
 }
 else {
-    console.log('Both families tips equaly on average: ' + johnAvgTip);
+    // console.log('Both families tips equaly on average: ' + johnAvgTip);
+    console.log('Both families tips equaly on average: ' + johnBills.avgTip);
 }
