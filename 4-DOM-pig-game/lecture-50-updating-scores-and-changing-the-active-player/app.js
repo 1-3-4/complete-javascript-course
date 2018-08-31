@@ -45,12 +45,25 @@ document.querySelector( '.btn-roll' ).addEventListener( 'click', function() { //
     diceDOM.style.display = 'block';
     diceDOM.src = 'dice-' + dice + '.png';
     // 3. Update the round score, IF random number != 1:
-    if ( dice !== 1) {
-        roundScore = roundScore + dice;
+    if ( dice !== 1 ) {
+        roundScore += dice;
         document.getElementById( 'current-' + activePlayer ).textContent = roundScore;
     }
     else {
+        // Reset player score:
         roundScore = 0;
         document.getElementById( 'current-' + activePlayer ).textContent = roundScore;
+
+        // Change active player:
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0; // Ternary operator.
+        // Manually remove and add a class:
+        // document.querySelector( '.player-0-panel' ).classList.remove( 'active' );
+        // document.querySelector( '.player-1-panel' ).classList.add( 'active' );
+        // .toggle removes a class if it is there and adds it if it isn't:
+        document.querySelector( '.player-0-panel' ).classList.toggle( 'active' );
+        document.querySelector( '.player-1-panel' ).classList.toggle( 'active' );
+
+        // Hide the die:
+        document.querySelector( '.dice' ).style.display = 'none';
     }
 });
