@@ -6,7 +6,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+
 }
 
 .clearfix::after {
@@ -80,7 +80,7 @@ body {
     color: #EB4D4D;
     top: -7px;
     right: 10px;
-    
+
 }
 
 .player-current-box {
@@ -137,9 +137,9 @@ i {
     transition: margin 0.3s;
 }
 
-.btn-new { top: 45px;}
+/* .btn-new { top: 45px;}
 .btn-roll { top: 403px;}
-.btn-hold { top: 467px;}
+.btn-hold { top: 467px;} */
 
 .dice {
     position: absolute;
@@ -152,3 +152,18 @@ i {
 
 .winner { background-color: #f7f7f7; }
 .winner .player-name { font-weight: 300; color: #EB4D4D; }
+
+/* ADDED BY ME */
+#winning-score {
+    position: absolute;
+    width: 200px;
+    top: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid silver;
+    padding: 0.25em;
+    text-align: center;
+}
+.btn-new { top: 90px;}
+.btn-roll { top: 403px;}
+.btn-hold { top: 467px;}
