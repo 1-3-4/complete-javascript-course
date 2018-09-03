@@ -14,7 +14,7 @@ GAME RULES:
 VARIABLE(S)
 ---------*/
 
-var globalScores, roundScore, activePlayer, dice, previousDice;
+var globalScores, roundScore, activePlayer;
 
 // State variable: A variable that tells us the condition of a system.
 var gameIsPlaying;
@@ -32,7 +32,7 @@ EVENTLISTENER(S)
 document.querySelector( '.btn-roll' ).addEventListener( 'click', function() { // Anonymous function: A function that doesn't have a name and therefore can't be reused.
     if (gameIsPlaying) {
         // 1. Generate random number:
-        dice = Math.floor( Math.random() * 6 ) + 1;
+        var dice = Math.floor( Math.random() * 6 ) + 1;
 
         // 2. Display the result:
         var diceDOM = document.querySelector( '.dice' );
@@ -43,12 +43,6 @@ document.querySelector( '.btn-roll' ).addEventListener( 'click', function() { //
         if ( dice !== 1 ) {
             roundScore += dice;
             document.getElementById( 'current-' + activePlayer ).textContent = roundScore;
-        }
-        else if (dice === 6 && previousDice === 6) {
-            // Lose current score:
-            // Lose global score:
-            // Change player:
-            nextPlayer();
         }
         else {
             previousDice = undefined;

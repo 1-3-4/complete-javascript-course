@@ -14,7 +14,7 @@ GAME RULES:
 VARIABLE(S)
 ---------*/
 
-var globalScores, roundScore, activePlayer;
+var globalScores, roundScore, activePlayer, dice, previousDice;
 
 // State variable: A variable that tells us the condition of a system.
 var gameIsPlaying;
@@ -32,21 +32,37 @@ EVENTLISTENER(S)
 document.querySelector( '.btn-roll' ).addEventListener( 'click', function() { // Anonymous function: A function that doesn't have a name and therefore can't be reused.
     if (gameIsPlaying) {
         // 1. Generate random number:
-        var dice = Math.floor( Math.random() * 6 ) + 1;
+        dice = Math.floor( Math.random() * 6 ) + 1;
 
         // 2. Display the result:
         var diceDOM = document.querySelector( '.dice' );
         diceDOM.style.display = 'block';
         diceDOM.src = 'dice-' + dice + '.png';
 
-        // 3. Update the round score, IF random number != 1:
-        if ( dice !== 1 ) {
+        // 3. Lose all points and turn if rolled two 6's in a row:
+        if (dice === 6 && previousDice === 6) {
+            console.log('Player ' + (activePlayer + 1) + ' rolled two 6\'s in a row, and lost all points.');
+            // Lose current score:
+            roundScore = 0;
+            document.getElementById( 'current-' + activePlayer ).textContent = roundScore;
+            // Lose global score:
+            globalScores[activePlayer] = 0;
+            document.getElementById( 'score-' + activePlayer ).textContent = globalScores[activePlayer];
+            // Change player:
+            nextPlayer();
+        }
+        // Update the round score, IF random number != 1:
+        else if ( dice !== 1 ) {
             roundScore += dice;
             document.getElementById( 'current-' + activePlayer ).textContent = roundScore;
+            // Save dice to previousDice:
+            previousDice = dice;
+
         }
         else {
             nextPlayer();
         }
+
     }
 });
 document.querySelector( '.btn-hold' ).addEventListener( 'click', function() {
@@ -94,6 +110,9 @@ function nextPlayer() {
 
     // 3. Hide the die (clearing table for next player):
     document.querySelector( '.dice' ).style.display = 'none';
+
+    // 4. Clear the previous dice rool:
+    previousDice = 0;
 }
 function init() {
     // Set state variable to true:
@@ -104,6 +123,8 @@ function init() {
     roundScore = 0;
     // Set active player to 0:
     activePlayer = 0;
+    // Set previous dice roll to 0:
+    previousDice = 0;
     // Hide die on table:
     document.querySelector( '.dice' ).style.display = 'none';
     // Update UI:
