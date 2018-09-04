@@ -125,12 +125,12 @@ function init() {
         console.log(winningScore);
 
     // Check if a winning score has been typed:
-    if (winningScoreInput === '') {
+    if ( winningScoreInput === '' ) {
         alert('Please set a winning score.');
     }
 
     // Else check if wished for winning score is a number:
-    else if ( winningScore == NaN ) {
+    else if ( isNaN( winningScore ) ) {
         alert('Winning score is not a number! Try again.');
     }
 
