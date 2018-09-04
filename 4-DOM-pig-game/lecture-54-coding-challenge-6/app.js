@@ -30,17 +30,28 @@ EVENTLISTENER(S)
 --------------*/
 
 document.querySelector( '.btn-roll' ).addEventListener( 'click', function() { // Anonymous function: A function that doesn't have a name and therefore can't be reused.
+
     if (gameIsPlaying) {
-        // 1. Generate random number:
-        dice = Math.floor( Math.random() * 6 ) + 1;
+        // // 1. Generate random number:
+        // dice = Math.floor( Math.random() * 6 ) + 1;
+        // Generate random numbers for dice:
+        dice = [];
+        dice[0] = Math.floor( Math.random() * 6 ) + 1;
+        dice[1] = Math.floor( Math.random() * 6 ) + 1;
 
         // 2. Display the result:
-        var diceDOM = document.querySelector( '.dice' );
-        diceDOM.style.display = 'block';
-        diceDOM.src = 'dice-' + dice + '.png';
+        // var diceDOM = document.querySelector( '.dice' );
+        var diceDOM = document.getElementsByClassName('dice');
+        // 2.1 Die 0:
+        diceDOM[0].style.display = 'block';
+        diceDOM[0].src = 'dice-' + dice[0] + '.png';
+        // 2.2 Die 1:
+        diceDOM[1].style.display = 'block';
+        diceDOM[1].src = 'dice-' + dice[1] + '.png';
 
-        // 3. Lose all points and turn if rolled two 6's in a row:
-        if (dice === 6 && previousDice === 6) {
+
+        // 3. Lose all points and turn if rolled two 6's in a row with the same die:
+        if ( ( dice[0] === 6 && previousDice[0] === 6 ) || ( dice[1] === 6 && previousDice[1] === 6 ) ) {
             console.log('Player ' + (activePlayer + 1) + ' rolled two 6\'s in a row, and lost all points.');
             // Lose current score:
             roundScore = 0;
@@ -52,8 +63,8 @@ document.querySelector( '.btn-roll' ).addEventListener( 'click', function() { //
             nextPlayer();
         }
         // Update the round score, IF random number != 1:
-        else if ( dice !== 1 ) {
-            roundScore += dice;
+        else if ( dice[0] !== 1 && dice[1] !== 1 ) {
+            roundScore += ( dice[0] + dice[1] );
             document.getElementById( 'current-' + activePlayer ).textContent = roundScore;
             // Save dice to previousDice:
             previousDice = dice;
@@ -79,7 +90,8 @@ document.querySelector( '.btn-hold' ).addEventListener( 'click', function() {
         if (globalScores[activePlayer] >= winningScore ) {
             // alert('Player ' + ( activePlayer + 1 ) + ' has won the pig game with ' + globalScores[activePlayer] + ' points!');
             document.querySelector( '#name-' + activePlayer ).textContent = 'WINNER!';
-            document.querySelector('.dice').style.display = 'none';
+            // document.querySelector('.dice').style.display = 'none';
+            hideDice();
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
             document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
             // Make sure game can't be played after a winner has been declared:
@@ -110,10 +122,11 @@ function nextPlayer() {
     document.querySelector( '.player-1-panel' ).classList.toggle( 'active' );
 
     // 3. Hide the die (clearing table for next player):
-    document.querySelector( '.dice' ).style.display = 'none';
+    // document.querySelector( '.dice' ).style.display = 'none';
+    hideDice();
 
     // 4. Clear the previous dice rool:
-    previousDice = 0;
+    previousDice = [0, 0];
 }
 function init() {
     // Read chosen winning score from input field and save to variable:
@@ -145,9 +158,11 @@ function init() {
         // Set active player to 0:
         activePlayer = 0;
         // Set previous dice roll to 0:
-        previousDice = 0;
-        // Hide die on table:
-        document.querySelector( '.dice' ).style.display = 'none';
+        previousDice = [0, 0];
+        // // Hide die on table:
+        // document.querySelector( '.dice' ).style.display = 'none';
+        // Hide all dice at startup:
+        hideDice();
         // Update UI:
         document.getElementById( 'name-0').textContent = 'Player 1';
         document.getElementById( 'name-1').textContent = 'Player 2';
@@ -161,4 +176,9 @@ function init() {
         document.querySelector('.player-1-panel').classList.remove('active');
         document.querySelector('.player-0-panel').classList.add('active');
     }
+}
+function hideDice() {
+    var die = document.getElementsByClassName('dice');
+    die[0].style.display = 'none';
+    die[1].style.display = 'none';
 }
