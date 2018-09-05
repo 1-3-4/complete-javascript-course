@@ -1,39 +1,28 @@
-// CREATING OBJECTS: FUNCTION CONSTRUCTORS
-// - Function constructors are named in PascalCase.
+/*-----------
+OBJECT.CREATE
+-----------*/
 
-// How we formerly created objects:
-var john = {
-    name: 'John',
-    yearOfBirth: 1990,
-    job: 'teacher'
+/*
+Object.create creates an object which inherits directly from the one passed in the first argument (the prototype).
+Function constructor creates an object that inherits from the constructor's prototype property.
+*/
+
+// Writing the prototype as an object:
+var personProto = {
+    calcAge: function() {
+        console.log(2016 - this.yearOfBirth);
+    }
 }
 
-var Person = function (name, yearOfBirth, job) {
-    this.name = name;
-    this.yearOfBirth = yearOfBirth;
-    this.job = job;
-    // this.calcAge = function () {
-    //     console.log( 2016 - this.yearOfBirth );
-    // }
-}
-// Method placed in the prototype property of the function constructor:
-// - Inheritance in practice.
-Person.prototype.calcAge = function calcAge() {
-    console.log( 2016 - this.yearOfBirth );
-}
-// Properties are not commonly placed in the prototype property but it can be done:
-Person.prototype.lastName = 'Smith';
+// Create an object, and manually add properties after its creation:
+var john = Object.create( personProto );
+john.name = 'John';
+john.yearOfBirth = 1990;
+john.job = 'teacher';
 
-// Instansiation: Creating an instance of the Person object:
-// - The 'new' operator creates an empty object, and points 'this' to it.
-var john = new Person('John', 1990, 'teacher');
-var jane = new Person('Jane', 1969, 'designer');
-var mark = new Person('Mark', 1948, 'retired');
-
-john.calcAge();
-jane.calcAge();
-mark.calcAge();
-
-console.log(john.lastName);
-console.log(jane.lastName);
-console.log(mark.lastName);
+// Create an object, and add properties to it during its creation:
+var jane = Object.create( personProto, {
+    name: { value: 'Jane' },
+    yearOfBirth: { value: 1969 },
+    job: {value: 'designer' }
+});
