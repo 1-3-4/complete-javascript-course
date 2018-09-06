@@ -37,7 +37,9 @@ johnFriendly('night');
 var emilyFormal = john.presentation.bind(emily, 'formal');
 emilyFormal('afternoon');
 
-ar years = [1990, 1965, 1937, 2005, 1998];
+
+
+var years = [1990, 1965, 1937, 2005, 1998];
 
 function arrayCalc( arr, fn ) {
     var arrRes = [];
@@ -54,4 +56,7 @@ function isFullAge( limit, elem ) {
     return elem >= limit;
 }
 
-var ages = arrayCalc(years, calcAge);
+var ages = arrayCalc( years, calcAge );
+var isFullAgeJapan = arrayCalc( ages, isFullAge.bind(this, 20) );
+console.log(ages);
+console.log(isFullAgeJapan);
