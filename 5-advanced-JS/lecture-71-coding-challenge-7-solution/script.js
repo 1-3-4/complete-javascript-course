@@ -2,6 +2,7 @@
 CODING CHALLENGE 7 - CONSOLE QUIZ GAME
 ------------------------------------*/
 
+// Code is made private by using an immideately invokeked function:
 ( function() {
     var userScore = 0;
     // Changed var to function creating a function constructor, not a function expression:
@@ -11,7 +12,7 @@ CODING CHALLENGE 7 - CONSOLE QUIZ GAME
         this.choices = choices;
         this.solution = solution;
         /*
-        this.display = function() {
+        this.displayQuestion = function() {
             console.log(this.question);
             for (var i = 0; i < this.choices.length; i++) {
                 console.log( i + ': ' + this.choices[i] );
@@ -40,8 +41,9 @@ CODING CHALLENGE 7 - CONSOLE QUIZ GAME
             console.log('-------------------------');
         }
     }
-    // Moved Method display out into the prototype property:
-    Question.prototype.display = function() {
+    // Moved Method displayQuestion out into the prototype property:
+    // Renamed method from display to displayQuestion (here and where it is called).
+    Question.prototype.displayQuestion = function() {
         console.log(this.question);
         for (var i = 0; i < this.choices.length; i++) {
             console.log( i + ': ' + this.choices[i] );
@@ -65,18 +67,24 @@ CODING CHALLENGE 7 - CONSOLE QUIZ GAME
             askQuestion();
         }
     }
-    var questions = [
+
+    // Instead of creating a seperate variable for each question, I've kept my questions in an array.
+    const questions = [
         new Question( 'Is JavaScript the best programming language in the world?', ['Yes', 'No'], 0 ),
         new Question( 'What is the name of the teacher of this course?', ['John', 'Mike', 'Jonas'], 2 ),
         new Question( 'What word best defines coding?', ['Hard', 'Boring', 'Fun', 'Difficult'], 2 )
     ];
+
     askQuestion();
     function askQuestion() {
-        var randomNum, userAnswer;
+        // Changed var to let since the variables are only used inside the function.
+        // var randomNum, userAnswer;
+        let randomNum, userAnswer;
         // Changed Math.round() to Math.floor():
         // randomNum = Math.round( Math.random() * questions.length );
         randomNum = Math.floor( Math.random() * questions.length );
-        questions[randomNum].display();
+        questions[randomNum].displayQuestion();
+        // Chose not to instantly parse the answer into an integer.
         userAnswer = prompt('Please write the number of your answer:');
         questions[randomNum].checkAnswer( userAnswer );
     }
