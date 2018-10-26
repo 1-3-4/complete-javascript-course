@@ -1,0 +1,6 @@
+LECTURE 89: EVENT DELEGATION
+Definition: The act of attaching an event handler to a parent element and waiting for an event to 'bubble' up from a child element.
+You can act on the original child element by using the 'target element' property.
+Use when:
+There is a lot of child elements. Attach one event handler to parent element, then find out which child element the event bubbled up from.
+Attaching an event handler to an element not yet in the DOM when the page is loaded.
