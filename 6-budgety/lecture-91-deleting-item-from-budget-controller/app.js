@@ -330,7 +330,7 @@ var controller = ( function( budgetCtrl, uiCtrl ) {
             spliItemId = itemId.split( '-' ); // Returns an array.
 
             type = spliItemId[0];
-            id = spliItemId[1];
+            id = parseInt( spliItemId[1] );
 
             // Delete item from data structure:
             budgetCtrl.deleteItem( type, id );
